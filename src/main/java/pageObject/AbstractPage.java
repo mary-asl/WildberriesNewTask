@@ -1,6 +1,5 @@
 package pageObject;
 
-import framework.driver.Driver;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
