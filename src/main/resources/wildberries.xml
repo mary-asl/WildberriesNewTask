@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Wildberries" verbose="1" parallel="classes" thread-count="3">
+    <test name="Wildberries">
+        <parameter name="category" value="Psychology"></parameter>
+        <classes>
+            <class name="TextSearchTest"></class>
+            <class name="DropdownListsTest"></class>
+            <class name="EksmoPageTest"></class>
+        </classes>
+    </test>
+
+</suite>
