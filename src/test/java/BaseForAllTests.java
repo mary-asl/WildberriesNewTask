@@ -1,4 +1,5 @@
 import framework.driver.Driver;
+import io.restassured.RestAssured;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -21,6 +22,7 @@ public abstract class BaseForAllTests {
     public void openWebDriver() {
         try {
             driver.get(BASE_URL);
+            RestAssured.baseURI = BASE_URL;
         } catch (WebDriverException e) {
             logger.error("WebDriverException occured");
         }

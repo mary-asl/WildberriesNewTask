@@ -1,9 +1,9 @@
+import businessObject.Product;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import businessObject.Item;
 import pageObject.CategoryPage;
 import pageObject.EksmoPage;
 import pageObject.HomePage;
@@ -57,13 +57,13 @@ public class EksmoPageTest extends BaseForAllTests {
     @Test(description = "verify that displayed item corresponds to the selected category",
             dataProvider = "bookCategories")
     public void isCategoryCorrect(String category, String expected) throws Exception {
-        Item item = new Item();
-        item.setCategory(expected);
+        Product product = new Product();
+        product.setCategory(expected);
         driver.navigate().to(EKSMO_PAGE_LINK);
         CategoryPage categoryPage = new EksmoPage(driver).selectCategory(category);
         ItemPage itemPage = categoryPage.selectItem();
         itemPage.readAllInformation();
-        Assert.assertEquals(itemPage.getCategory(), item.getCategory(), "the item category does not match the selected category");
+        Assert.assertEquals(itemPage.getCategory(), product.getCategory(), "the item category does not match the selected category");
     }
 
     @DataProvider(name = "bookCategories", parallel = false)
