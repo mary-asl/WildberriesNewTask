@@ -20,11 +20,9 @@ import static io.restassured.RestAssured.given;
 
 public class WildberriesWebServiceTest {
 
-    private static final String BASE_URL = "https://www.wildberries.kz";
-
     @BeforeTest
     public void init() {
-        RestAssured.baseURI = BASE_URL;
+        RestAssured.baseURI = "https://www.wildberries.kz";
     }
 
     @Test(description = "Validation: status code of the obtained response is 200 OK")
