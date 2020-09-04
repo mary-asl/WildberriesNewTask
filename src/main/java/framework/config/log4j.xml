@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
+
     <Appenders>
         <Console name="console">
             <PatternLayout>
                 <Pattern>%d %p %c{2} [%t] %l %m%n</Pattern>
             </PatternLayout>
         </Console>
-        <File name="fileAll" fileName="./target/logs/all.log">
-        </File>
-        <File name="fileErrors" fileName="./target/logs/errors.log">
+        <RollingFile name="DailyRoll" fileName="./logs/${date:yyyy}/${date:MM}/${date:dd}_
+        AllLogs.log"
+                     filePattern="./logs/${date:yyyy} - ${date:MMM}/%d{dd} - AllLogs-%i.log">
             <PatternLayout>
-                <Pattern>%d %p %c{2} [%t] %l %m%n</Pattern>
+                <Pattern>%d %p %c{2} [%t]  %l %m%n</Pattern>
             </PatternLayout>
-        </File>
+            <Policies>
+                <CronTriggeringPolicy schedule="0 0 0 * * ?" />
+                <SizeBasedTriggeringPolicy size="250 MB" />
+            </Policies>
+        </RollingFile>
     </Appenders>
 
     <Loggers>
         <Root level="trace">
-            <AppenderRef ref="console" />
-            <AppenderRef ref="fileAll" />
-            <AppenderRef ref="fileErrors" level = "error"/>
+            <AppenderRef ref="DailyRoll" />
+            <AppenderRef ref="console" level = "info"/>
         </Root>
     </Loggers>
 

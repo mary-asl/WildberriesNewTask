@@ -1,5 +1,6 @@
 package pageObject;
 
+import framework.util.MyLogger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -33,11 +34,13 @@ public abstract class AbstractPage {
     }
 
     public String getText(By by) {
+        MyLogger.info("get text from element located by - " + by);
         return getWebElement(by).getText();
     }
 
     public WebElement getWebElement(By by) {
         waitForElementVisible(by);
+        MyLogger.info("wait for element located by - " + by);
         return driver.findElement(by);
     }
 
@@ -48,14 +51,17 @@ public abstract class AbstractPage {
 
     public void refresh() {
         driver.navigate().refresh();
+        MyLogger.info("refreshed current page");
     }
 
     public void click(By locator) {
         getWebElement(locator).click();
+        MyLogger.info("click to element located by: " + locator);
     }
 
     public void waitForElementEnabled(By locator) {
         new WebDriverWait(driver, WAIT_FOR_ELEMENT_SECONDS).until(ExpectedConditions.elementToBeClickable(locator));
+        MyLogger.info("wait for element by - " + locator);
     }
 
     public void redrawElement(By locator) {

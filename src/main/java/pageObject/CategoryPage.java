@@ -1,5 +1,4 @@
 package pageObject;
-
 import framework.util.Screenshoter;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;

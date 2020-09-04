@@ -1,8 +1,6 @@
 package framework.util;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -19,7 +17,6 @@ import java.io.IOException;
 public class Screenshoter {
 
     private static final String SCREENSHOTS_NAME_TPL = "./src/screenshots/screen";
-    private static Logger logger = LogManager.getLogger();
     private static String screenName = SCREENSHOTS_NAME_TPL + System.nanoTime();
 
     public static void makeScreenshot(WebDriver driver) {
@@ -28,7 +25,7 @@ public class Screenshoter {
             File copy = new File(screenName + ".png");
             FileUtils.copyFile(screenshot, copy);
         } catch (IOException e) {
-            logger.error("Failed to make screenshot");
+            MyLogger.error("Failed to make screenshot");
         }
     }
 
@@ -37,9 +34,10 @@ public class Screenshoter {
         try {
             Screenshot screenshot=new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1500)).takeScreenshot(augmentedDriver);
             ImageIO.write(screenshot.getImage(),"PNG",new File(screenName + ".png"));
+            MyLogger.info("full page screenshot: " + screenName + " was made");
         }
         catch(IOException e) {
-            logger.error("Failed to make screenshot");
+            MyLogger.error("Failed to make screenshot");
         }
     }
 }
