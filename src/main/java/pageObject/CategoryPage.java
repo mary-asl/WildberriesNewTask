@@ -58,12 +58,14 @@ public class CategoryPage extends AbstractPage {
     }
 
     public CategoryPage filterByPrice() {
+        refresh();
         highlightElement(FILTER_BY_PRICE_BTN_LOCATOR);
         click(FILTER_BY_PRICE_BTN_LOCATOR);
         return this;
     }
 
     public CategoryPage filterByDiscount() {
+        refresh();
         highlightElement(FILTER_BY_DISCOUNT_BTN_LOCATOR);
         click(FILTER_BY_DISCOUNT_BTN_LOCATOR);
         return this;
