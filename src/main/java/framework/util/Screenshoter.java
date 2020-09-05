@@ -16,25 +16,24 @@ import java.io.IOException;
 
 public class Screenshoter {
 
-    private static final String SCREENSHOTS_NAME_TPL = "./src/screenshots/screen";
-    private static String screenName = SCREENSHOTS_NAME_TPL + System.nanoTime();
+    private static final String SCREENSHOTS_NAME_TPL = "./screenshots/";
 
     public static void makeScreenshot(WebDriver driver) {
         try {
             File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            File copy = new File(screenName + ".png");
+            File copy = new File(SCREENSHOTS_NAME_TPL + System.nanoTime() + ".png");
             FileUtils.copyFile(screenshot, copy);
         } catch (IOException e) {
             MyLogger.error("Failed to make screenshot");
         }
     }
 
-    public static void makeFullPageScreenshot(WebDriver driver) {
+    public static void makeFullPageScreenshot(WebDriver driver, String testName) {
         WebDriver augmentedDriver = new Augmenter().augment(driver);
         try {
             Screenshot screenshot=new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1500)).takeScreenshot(augmentedDriver);
-            ImageIO.write(screenshot.getImage(),"PNG",new File(screenName + ".png"));
-            MyLogger.info("full page screenshot: " + screenName + " was made");
+            ImageIO.write(screenshot.getImage(),"PNG",new File(SCREENSHOTS_NAME_TPL + testName + System.nanoTime() + ".png"));
+            MyLogger.info("full page screenshot: " + SCREENSHOTS_NAME_TPL + testName + System.nanoTime() + " was made");
         }
         catch(IOException e) {
             MyLogger.error("Failed to make screenshot");

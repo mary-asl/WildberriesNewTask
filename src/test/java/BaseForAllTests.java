@@ -1,8 +1,11 @@
 import framework.driver.Driver;
 import framework.util.MyLogger;
+import framework.util.Screenshoter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 
 public abstract class BaseForAllTests {
@@ -22,6 +25,17 @@ public abstract class BaseForAllTests {
             MyLogger.info("driver was opened with URL: " + BASE_URL);
         } catch (WebDriverException e) {
             MyLogger.error("WebDriverException occured");
+        }
+    }
+
+    @AfterMethod
+    public void screenshotFailedCases(ITestResult result) {
+        if (ITestResult.FAILURE == result.getStatus()) {
+            try {
+                Screenshoter.makeFullPageScreenshot(driver, result.getName());
+            } catch (Exception e) {
+                MyLogger.error("Exception while taking screenshot " + e.getMessage());
+            }
         }
     }
 

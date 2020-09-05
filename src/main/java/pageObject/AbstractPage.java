@@ -11,6 +11,7 @@ import java.util.List;
 public abstract class AbstractPage {
     private static final int WAIT_FOR_ELEMENT_SECONDS = 10;
     private WebDriver driver;
+    private  WebElement lastClick = null;
 
     public AbstractPage(WebDriver driver) {
         this.driver = driver;
@@ -70,11 +71,20 @@ public abstract class AbstractPage {
     }
 
     public void highlightElement(By locator){
-        ((JavascriptExecutor) driver).executeScript("arguments[0].style.backgroundColor = '" + "yellow" + "'", getWebElement(locator));
+        unHighlightElement(getWebElement(locator));
+        lastClick = getWebElement(locator);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].style.backgroundColor = '" + "yellow" + "'", lastClick);
     }
 
-    public void unHighlightElement(By locator){
-        ((JavascriptExecutor) driver).executeScript("arguments[0].style.backgroundColor = '" + "none" + "'",  getWebElement(locator));
+    public void unHighlightElement(WebElement element){
+        if (lastClick!=null){
+            try {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].style.backgroundColor = '" + "none" + "'",  element);
+            } catch (StaleElementReferenceException ignored) {
+            } finally {
+                lastClick = null;
+            }
+        }
     }
 
 }

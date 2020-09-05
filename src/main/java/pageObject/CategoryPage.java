@@ -1,5 +1,4 @@
 package pageObject;
-import framework.util.Screenshoter;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -43,38 +42,30 @@ public class CategoryPage extends AbstractPage {
     }
 
     public List<Integer> getItemsPrice() {
-        refresh();
         return getWebElements(ITEMS_PRICE_LOCATOR).stream().map(webElement -> Integer.parseInt(StringUtils
                 .substringBefore(webElement.getText()
                         .replaceAll("\\s+", ""), "тг"))).collect(Collectors.toList());
     }
 
     public List<Double> getItemsDiscount() {
-        refresh();
         return getWebElements(ITEMS_DISCOUNTS_LOCATOR).stream().map(webElement -> Double.parseDouble(webElement.getText().substring(0, 3))).collect(Collectors.toList());
     }
 
     public CategoryPage filterByRate() {
         highlightElement(FILTER_BY_RATE_LOCATOR);
         click(FILTER_BY_RATE_LOCATOR);
-        Screenshoter.makeFullPageScreenshot(getDriver());
-        unHighlightElement(FILTER_BY_RATE_LOCATOR);
         return this;
     }
 
     public CategoryPage filterByPrice() {
         highlightElement(FILTER_BY_PRICE_BTN_LOCATOR);
         click(FILTER_BY_PRICE_BTN_LOCATOR);
-        Screenshoter.makeFullPageScreenshot(getDriver());
-        unHighlightElement(FILTER_BY_PRICE_BTN_LOCATOR);
         return this;
     }
 
     public CategoryPage filterByDiscount() {
         highlightElement(FILTER_BY_DISCOUNT_BTN_LOCATOR);
         click(FILTER_BY_DISCOUNT_BTN_LOCATOR);
-        Screenshoter.makeFullPageScreenshot(getDriver());
-        unHighlightElement(FILTER_BY_DISCOUNT_BTN_LOCATOR);
         return this;
     }
 
